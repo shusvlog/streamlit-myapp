@@ -37,3 +37,16 @@ data = pd.melt(data, id_vars=['Date']).rename(
     columns = {'value': '株価(USD$)'}
 )
 data
+
+ymin, ymax = 250, 400
+
+chart = (
+    alt.Chart(data)
+    .mark_line(opacity=0.8, clip=True)
+    .encode(
+        x = 'Date:T',
+        y = alt.Y('株価(USD$):Q', stack=None, scale=alt.scale(domain=[ymin, ymax])),
+        color = '企業名:N'
+    )
+)
+chart
